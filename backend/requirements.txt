@@ -40,7 +40,7 @@ python-dateutil
 python-dotenv
 pytz
 pytz-deprecation-shim
-pywin32
+Pillow
 pyzmq
 requests
 six
