@@ -41,6 +41,7 @@ pluggy
 prompt-toolkit
 python-dateutil
 python-dotenv
+psycopg2-binary
 pytz
 pytz-deprecation-shim
 Pillow
