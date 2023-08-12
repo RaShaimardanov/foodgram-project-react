@@ -1,0 +1,38 @@
+# docker-compose.production.yml
+version: '3'
+
+volumes:
+  pg_data_kitty_production:
+  static_kitty_production:
+  media_kitty_production:
+
+services:
+  db:
+    image: postgres:13.10
+    env_file: .env
+    volumes:
+      - pg_data_production:/var/lib/postgresql/data
+  backend:
+    image: shaimardanov/foodgram_backend
+    env_file: .env
+    volumes:
+      - static_production:/backend_static/
+      - media_production:/app/media/images/
+    depends_on:
+    - db
+  frontend:
+    image: shaimardanov/foodgram_frontend  # Качаем с DockerHub
+    env_file: .env
+    command: cp -r /app/build/. /frontend_static/
+    volumes:
+      - static_production:/frontend_static
+  gateway:
+    image: shaimardanov/foodgram_gateway  # Качаем с DockerHub
+    # env_file: .env
+    volumes:
+      - static_production:/staticfiles/
+      - media_production:/media/images/
+    ports:
+      - 6000:80
+    depends_on:
+      - backend
