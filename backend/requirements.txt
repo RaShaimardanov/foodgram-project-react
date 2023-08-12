@@ -61,3 +61,4 @@ urllib3
 wcwidth
 wrapt
 zipp
+webcolors
