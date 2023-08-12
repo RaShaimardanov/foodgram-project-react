@@ -62,7 +62,7 @@ jobs:
         script: |
           cd foodgram
           sudo docker compose stop
-          sudo docker pull ${{ secrets.DOCKER_USERNAME }}//foodgram_backend:latest
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
           touch .env
           echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
