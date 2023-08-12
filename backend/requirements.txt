@@ -12,8 +12,11 @@ debugpy
 decorator
 dill
 Django
+django-filter
 djangorestframework
+djangorestframework-simplejwt
 drf-extra-fields
+djoser
 emoji
 entrypoints
 filetype
