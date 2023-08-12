@@ -11,7 +11,7 @@ colorama
 debugpy
 decorator
 dill
-Django=
+Django
 djangorestframework
 drf-extra-fields
 emoji
@@ -22,7 +22,7 @@ idna
 importlib-metadata
 iniconfig
 ipykernel
-isort=
+isort
 jedi
 matplotlib-inline
 mccabe
@@ -38,7 +38,7 @@ pluggy
 prompt-toolkit
 python-dateutil
 python-dotenv
-pytz=
+pytz
 pytz-deprecation-shim
 pywin32
 pyzmq
