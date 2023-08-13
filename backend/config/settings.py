@@ -10,7 +10,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = bool(os.getenv('DEBUG', 'False').lower() == 'true')
 
 ALLOWED_HOSTS = ['food.cl02.store']
-
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
 
 # Application definition
 
@@ -139,7 +139,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'collected_static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
