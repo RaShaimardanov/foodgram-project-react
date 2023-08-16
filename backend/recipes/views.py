@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 from users.permissions import IsAdminOrAuthor
+from .pagination import CustomPagination
 
 from .models import (Tag, Recipe, Ingredient, Favorite,
                      ShoppingList, RecipeIngredient)
@@ -29,6 +30,7 @@ class TagViewSet(ModelViewSet):
 class RecipeViewSet(ModelViewSet):
     queryset = Recipe.objects.all()
     # permission_classes = (IsAdminOrAuthor,)
+    pagination_class = CustomPagination
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH', 'DELETE'):
