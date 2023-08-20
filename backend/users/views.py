@@ -13,7 +13,7 @@ from recipes.pagination import CustomPagination
 
 
 class CustomUserViewSet(UserViewSet):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    # permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = User.objects.all().order_by('-date_joined')
     pagination_class = CustomPagination
 
