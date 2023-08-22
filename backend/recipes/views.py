@@ -33,17 +33,7 @@ class RecipeViewSet(ModelViewSet):
     permission_classes = (IsAdminOrAuthor,)
     pagination_class = CustomPagination
     filter_backends = (DjangoFilterBackend,)
-    # filter_class = RecipeFilter
-    filter_fields = ('tag', 'author', 'favorite',)
-
-    def filter_queryset(self, queryset):
-        if self.request.query_params.get('favorite', None):
-            queryset = super(Favorite, self).filter_queryset(self.get_queryset())
-        if self.request.query_params.get('author', None):
-            queryset = super(User, self).filter_queryset(self.get_queryset())
-        else:
-            queryset = self.get_queryset()
-        return queryset
+    filter_class = RecipeFilter
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH', 'DELETE'):
