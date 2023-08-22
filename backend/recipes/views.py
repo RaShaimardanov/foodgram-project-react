@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
+from users.permissions import IsAdminOrAuthor
 from .pagination import CustomPagination
 from .filters import IngredientFilter, RecipeFilter
 from .models import (Tag, Recipe, Ingredient, Favorite,
@@ -28,6 +29,7 @@ class TagViewSet(ModelViewSet):
 
 class RecipeViewSet(ModelViewSet):
     queryset = Recipe.objects.all()
+    permission_classes = (IsAdminOrAuthor,)
     filter_backends = (DjangoFilterBackend,)
     filter_class = RecipeFilter
     pagination_class = CustomPagination

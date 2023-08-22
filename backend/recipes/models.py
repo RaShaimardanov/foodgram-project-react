@@ -40,7 +40,7 @@ class Tag(models.Model):
         verbose_name='Цвет для тега')
     slug = models.SlugField(
         max_length=50,
-        verbose_name='Идентификатор тега',
+        verbose_name='Слаг',
         unique=True)
 
     class Meta:
