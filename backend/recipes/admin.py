@@ -31,15 +31,18 @@ class IngredientAdmin(ImportExportModelAdmin):
     list_display = ('id', 'name', 'measurement_unit')
     list_display_links = ('id', 'name', 'measurement_unit')
 
+
 @admin.register(models.RecipeIngredient)
 class IngredientRecipeAdmin(admin.ModelAdmin):
     list_display = ('id', 'recipe', 'amount')
     list_display_links = ('id', 'recipe', 'amount')
 
+
 @admin.register(models.Favorite)
 class FavoriteAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'recipe')
     list_display_links = ('id', 'user', 'recipe')
+
 
 @admin.register(models.ShoppingList)
 class ShoppingListAdmin(admin.ModelAdmin):

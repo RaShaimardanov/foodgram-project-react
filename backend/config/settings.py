@@ -10,7 +10,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = bool(os.getenv('DEBUG', 'False').lower() == 'true')
 
 ALLOWED_HOSTS = ['food.cl02.store']
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
@@ -79,6 +79,14 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 6,
+
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'SEARCH_PARAM': 'name',
+
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],

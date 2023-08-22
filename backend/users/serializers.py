@@ -91,4 +91,5 @@ class FollowSerializer(UserSerializer):
 
     class Meta:
         model = Follow
-        fields = ['email', 'id', 'username', 'first_name', 'last_name', 'is_subscribed', 'recipes', 'recipes_count']
+        fields = ['email', 'id', 'username', 'first_name', 'last_name',
+                  'is_subscribed', 'recipes', 'recipes_count']
