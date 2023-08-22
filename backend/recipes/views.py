@@ -34,6 +34,17 @@ class RecipeViewSet(ModelViewSet):
     filter_class = RecipeFilter
     pagination_class = CustomPagination
 
+    def get_queryset(self):
+        queryset = Recipe.objects.all()
+        user = self.request.user
+        if self.request.GET.get('is_favorited'):
+            favorite_recipe_id = Favorite.objects.filter(
+                user=user).values('recipe_id')
+
+            return queryset.filter(pk__in=favorite_recipe_id)
+
+        return queryset
+
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH', 'DELETE'):
             return RecipeSerializer
@@ -120,3 +131,4 @@ class IngredientViewSet(ModelViewSet):
     permission_classes = (AllowAny,)
     filter_backends = (DjangoFilterBackend, )
     filter_class = IngredientFilter
+    search_fields = ('^name',)
