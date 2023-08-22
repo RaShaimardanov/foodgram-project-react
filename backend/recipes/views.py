@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 from users.permissions import IsAdminOrAuthor
+from users.models import User
 from .pagination import CustomPagination
 from .filters import IngredientFilter, RecipeFilter
 from .models import (Tag, Recipe, Ingredient, Favorite,
@@ -28,22 +29,21 @@ class TagViewSet(ModelViewSet):
 
 
 class RecipeViewSet(ModelViewSet):
+    queryset = Recipe.objects.all()
     permission_classes = (IsAdminOrAuthor,)
     pagination_class = CustomPagination
     filter_backends = (DjangoFilterBackend,)
-    filter_class = RecipeFilter
+    # filter_class = RecipeFilter
+    filter_fields = ('tag', 'author', 'favorite',)
 
-    def get_queryset(self):
-        data = Recipe.objects.all()
-        if self.request.query_params.get('is_favorited') == "1":
-            data = data.filter(is_favorited=True)
-        if self.request.GET.get('is_in_shopping_cart') == "1":
-            data = data.filter(recipe__user=self.request.user)
-        if self.request.GET.get('author'):
-            data = data.filter(author__id=self.request.GET.get('author'))
-        if self.request.GET.get('tags'):
-            data = data.filter(tags__in=[self.request.GET.get('tags')])
-        return data
+    def filter_queryset(self, queryset):
+        if self.request.query_params.get('favorite', None):
+            queryset = super(Favorite, self).filter_queryset(self.get_queryset())
+        if self.request.query_params.get('author', None):
+            queryset = super(User, self).filter_queryset(self.get_queryset())
+        else:
+            queryset = self.get_queryset()
+        return queryset
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH', 'DELETE'):
