@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django_filters',
     'djoser',
     'drf_extra_fields',
+    'import_export',
     'recipes',
     'users'
 ]

@@ -1,6 +1,16 @@
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 from . import models
+
+
+class IngredientResource(resources.ModelResource):
+
+    class Meta:
+        model = models.Ingredient
+        import_id_fields = ('name',)
+        report_skipped = True
 
 
 @admin.register(models.Recipe)
@@ -16,7 +26,8 @@ class TagAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Ingredient)
-class IngredientAdmin(admin.ModelAdmin):
+class IngredientAdmin(ImportExportModelAdmin):
+    resource_classes = [IngredientResource]
     list_display = ('id', 'name', 'measurement_unit')
     list_display_links = ('id', 'name', 'measurement_unit')
 

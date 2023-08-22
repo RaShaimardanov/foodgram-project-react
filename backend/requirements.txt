@@ -15,6 +15,7 @@ Django
 django-filter
 djangorestframework
 djangorestframework-simplejwt
+django-import-export
 drf-extra-fields
 djoser
 emoji
