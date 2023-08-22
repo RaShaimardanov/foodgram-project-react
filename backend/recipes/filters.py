@@ -1,7 +1,7 @@
 import django_filters as filters
 from django_filters.filters import ModelMultipleChoiceFilter
 
-from .models import Ingredient, Recipe, Tag
+from .models import Ingredient, Recipe, Tag, Favorite
 
 
 class IngredientFilter(filters.FilterSet):
@@ -31,8 +31,7 @@ class RecipeFilter(filters.FilterSet):
 
     def is_favorited_method(self, queryset, name, value):
         if value:
-            return Recipe.objects.filter(favorite__user=self.request.user)
-        return Recipe.objects.all()
+            return Favorite.objects.filter(user=self.request.user)
 
     def is_in_shopping_cart_method(self, queryset, name, value):
         if value:
