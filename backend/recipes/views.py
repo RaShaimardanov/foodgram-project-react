@@ -28,7 +28,6 @@ class TagViewSet(ModelViewSet):
 
 
 class RecipeViewSet(ModelViewSet):
-    queryset = Recipe.objects.all()
     permission_classes = (IsAdminOrAuthor,)
     filter_backends = (DjangoFilterBackend,)
     filter_class = RecipeFilter
@@ -131,4 +130,3 @@ class IngredientViewSet(ModelViewSet):
     permission_classes = (AllowAny,)
     filter_backends = (DjangoFilterBackend, )
     filter_class = IngredientFilter
-    search_fields = ('^name',)
