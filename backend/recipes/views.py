@@ -23,9 +23,12 @@ class TagViewSet(ModelViewSet):
     serializer_class = TagSerializer
     pagination_class = None
 
-    def get_object(self):
-        pk = self.kwargs.get('pk')
-        return get_object_or_404(Tag, pk=pk)
+    def get_serializer_context(self):
+        """Метод для передачи контекста. """
+
+        context = super().get_serializer_context()
+        context.update({'request': self.request})
+        return context
 
 
 class RecipeViewSet(ModelViewSet):
