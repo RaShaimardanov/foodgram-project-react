@@ -49,7 +49,7 @@ class UserDetailSerializer(UserSerializer):
 
         return Follow.objects.filter(user=user, following=obj).exists()
 
-    class Meta:
+    class Meta(UserSerializer.Meta):
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email',
                   'is_subscribed')
