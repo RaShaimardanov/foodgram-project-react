@@ -42,21 +42,17 @@ class UserSerializer(UserSerializer):
     )
 
     def get_is_subscribed(self, obj):
-        return Follow.objects.filter(
-            user=obj.user,
-            following=obj.following
-        ).exists()
+        user = self.context['request'].user
+
+        if user.is_anonymous:
+            return False
+
+        return Follow.objects.filter(user=user, following=obj).exists()
 
     class Meta:
         model = User
-        fields = (
-            'email',
-            'id',
-            'username',
-            'first_name',
-            'last_name',
-            'is_subscribed'
-        )
+        fields = ('id', 'username', 'first_name', 'last_name', 'email',
+                  'is_subscribed')
 
 
 class FollowSerializer(UserSerializer):
