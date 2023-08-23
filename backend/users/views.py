@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 
 from .models import User, Follow
-from .serializers import UserSerializer, FollowSerializer
+from .serializers import UserDetailSerializer, FollowSerializer
 from recipes.pagination import CustomPagination
 
 
@@ -20,10 +20,10 @@ class CustomUserViewSet(UserViewSet):
     def me(self, request):
         """Выводит информацию о пользователе"""
 
-        serializer = UserSerializer(
+        serializer = UserDetailSerializer(
             request.user, context={'request': request})
         if request.method == 'PATCH':
-            serializer = UserSerializer(
+            serializer = UserDetailSerializer(
                 request.user,
                 data=request.data,
                 context={'request': request},

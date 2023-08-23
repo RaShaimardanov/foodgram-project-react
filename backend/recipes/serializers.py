@@ -8,7 +8,7 @@ from drf_extra_fields.fields import Base64ImageField
 from .models import (Tag, Recipe, Ingredient, RecipeIngredient,
                      Favorite,
                      ShoppingList)
-from users.serializers import UserSerializer
+from users.serializers import UserDetailSerializer
 
 
 class Hex2NameColor(serializers.Field):
@@ -73,7 +73,7 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 class RecipeViewSerializer(serializers.ModelSerializer):
     """Сериализатор для просмотра списка рецептов."""
 
-    author = UserSerializer(read_only=True)
+    author = UserDetailSerializer(read_only=True)
     ingredients = serializers.SerializerMethodField(
         method_name='get_ingredients')
     tags = TagSerializer(many=True, read_only=True)
@@ -116,7 +116,7 @@ class RecipeViewSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
+    author = UserDetailSerializer(read_only=True)
     tags = serializers.PrimaryKeyRelatedField(
         queryset=Tag.objects.all(), many=True)
     ingredients = RecipeChangeIngredientSerializer(many=True)

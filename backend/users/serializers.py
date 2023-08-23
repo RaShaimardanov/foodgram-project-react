@@ -35,7 +35,7 @@ class UserCreateSerializer(UserCreateSerializer):
                   'last_name', 'password')
 
 
-class UserSerializer(UserSerializer):
+class UserDetailSerializer(UserSerializer):
     """Сериализатор для пользователя."""
     is_subscribed = serializers.SerializerMethodField(
         method_name='get_is_subscribed'
