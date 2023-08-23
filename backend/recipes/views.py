@@ -35,21 +35,17 @@ class RecipeViewSet(ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_class = RecipeFilter
 
-    def filter_queryset(self, queryset):
-        filter_backends = (DjangoFilterBackend, )
+    def get_serializer_context(self):
+        """Метод для передачи контекста. """
 
-
-        for backend in list(filter_backends):
-            queryset = backend().filter_queryset(self.request, queryset,
-                                                 view=self)
-        return queryset
+        context = super().get_serializer_context()
+        context.update({'request': self.request})
+        return context
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH', 'DELETE'):
             return RecipeSerializer
-        return RecipeViewSerializer(self.filter_queryset(
-            self.get_queryset()), many=True, context={"request": self.request}
-            )
+        return RecipeViewSerializer
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
