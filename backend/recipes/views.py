@@ -8,7 +8,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 from users.permissions import IsAdminOrAuthor
-from users.models import User
 from .pagination import CustomPagination
 from .filters import IngredientFilter, RecipeFilter
 from .models import (Tag, Recipe, Ingredient, Favorite,
