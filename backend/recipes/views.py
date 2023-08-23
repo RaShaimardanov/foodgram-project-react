@@ -35,17 +35,14 @@ class RecipeViewSet(ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filter_class = RecipeFilter
 
-    # def get_queryset(self):
-    #     data = Recipe.objects.all()
-    #     if self.request.query_params.get('is_favorited'):
-    #         data = data.filter(is_favorited=True)
-    #     if self.request.GET.get('is_in_shopping_cart') == "1":
-    #         data = data.filter(recipe__user=self.request.user)
-    #     if self.request.GET.get('author'):
-    #         data = data.filter(author__id=self.request.GET.get('author'))
-    #     if self.request.GET.get('tags'):
-    #         data = data.filter(tags__in=[self.request.GET.get('tags')])
-    #     return data
+    def filter_queryset(self, queryset):
+        filter_backends = (DjangoFilterBackend, )
+
+
+        for backend in list(filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset,
+                                                 view=self)
+        return queryset
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH', 'DELETE'):
