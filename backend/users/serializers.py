@@ -35,7 +35,7 @@ class UserCreateSerializer(UserCreateSerializer):
                   'last_name', 'password')
 
 
-class UserDetailSerializer(UserSerializer):
+class UserDetailSerializer(serializers.ModelSerializer):
     """Сериализатор для пользователя."""
     is_subscribed = serializers.SerializerMethodField(
         method_name='get_is_subscribed'
@@ -49,13 +49,13 @@ class UserDetailSerializer(UserSerializer):
 
         return Follow.objects.filter(user=user, following=obj).exists()
 
-    class Meta(UserSerializer.Meta):
+    class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email',
                   'is_subscribed')
 
 
-class FollowSerializer(UserSerializer):
+class FollowSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField(source='following.id')
     email = serializers.ReadOnlyField(source='following.email')
     username = serializers.ReadOnlyField(source='following.username')
