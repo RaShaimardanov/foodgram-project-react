@@ -42,12 +42,9 @@ class UserSerializer(UserSerializer):
     )
 
     def get_is_subscribed(self, obj):
-        if self.context['request'].user.is_anonymous:
-            return False
-
         return Follow.objects.filter(
-            user=self.context['request'].user,
-            following=obj
+            user=obj.user,
+            following=obj.following
         ).exists()
 
     class Meta:
