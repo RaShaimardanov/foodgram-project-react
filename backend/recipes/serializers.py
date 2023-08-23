@@ -94,7 +94,7 @@ class RecipeViewSerializer(serializers.ModelSerializer):
         if user.is_anonymous:
             return False
 
-        return Favorite.objects.filter(user=user, recipe=obj).exists()
+        return Favorite.objects.filter(user=user, recipe=obj.id).exists()
 
     # def get_is_favorited(self, obj):
     #     return Favorite.objects.filter(
