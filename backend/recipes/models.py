@@ -98,6 +98,10 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
 
+    @staticmethod
+    def is_favorited(recipe, user):
+        return Favorite.objects.filter(recipe=recipe, user=user).exists()
+
 
 class RecipeIngredient(models.Model):
     """
@@ -127,10 +131,6 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return (f"{self.recipe.name} - {self.ingredient.name} - {self.amount}")
-
-    @staticmethod
-    def is_favorited(recipe, user):
-        return Favorite.objects.filter(recipe=recipe, user=user).exists()
 
 
 class Favorite(models.Model):
