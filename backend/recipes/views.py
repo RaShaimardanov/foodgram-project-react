@@ -48,7 +48,7 @@ class RecipeViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH', 'DELETE'):
             return RecipeSerializer
-        return RecipeViewSerializer(data=self.request.data, context={"request": self.request})
+        return RecipeViewSerializer
 
 
     def perform_create(self, serializer):
