@@ -47,7 +47,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
         if user.is_anonymous:
             return False
 
-        return Follow.objects.filter(user=user, following=obj).exists()
+        return Follow.objects.filter(user=user, following=obj.id).exists()
 
     class Meta:
         model = User
