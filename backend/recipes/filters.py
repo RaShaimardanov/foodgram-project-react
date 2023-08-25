@@ -8,7 +8,7 @@ class IngredientFilter(FilterSet):
 
     class Meta:
         model = Ingredient
-        fields = ['name']
+        fields = ('name',)
 
 
 class RecipeFilter(FilterSet):
@@ -18,7 +18,7 @@ class RecipeFilter(FilterSet):
 
     class Meta:
         model = Recipe
-        fields = ['is_favorited', 'is_in_shopping_cart', 'author', 'tags']
+        fields = ('is_favorited', 'is_in_shopping_cart', 'author', 'tags',)
 
     def filter_queryset(self, queryset):
         author = self.data.get('author')
@@ -35,8 +35,6 @@ class RecipeFilter(FilterSet):
 
         tags = self.data.get('tags')
         if tags is not None:
-            # if tags are presented we have to get list if them instead of
-            # the last one
             tags = self.data.getlist('tags')
             queryset = queryset.filter(tags__slug__in=tags).distinct()
 

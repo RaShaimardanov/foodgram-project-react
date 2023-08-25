@@ -5,7 +5,6 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-
 from .models import User, Follow
 from .serializers import UserDetailSerializer, FollowSerializer
 from recipes.pagination import CustomPagination

@@ -27,7 +27,7 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(models.Ingredient)
 class IngredientAdmin(ImportExportModelAdmin):
-    resource_classes = [IngredientResource]
+    resource_classes = (IngredientResource)
     list_display = ('id', 'name', 'measurement_unit')
     list_display_links = ('id', 'name', 'measurement_unit')
 
