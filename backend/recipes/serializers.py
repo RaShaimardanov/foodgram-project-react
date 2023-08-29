@@ -30,13 +30,6 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ('id', 'name', 'color', 'slug')
 
-    def validate_color(self, value):
-        try:
-            value = webcolors.hex_to_name(value)
-        except ValueError:
-            raise serializers.ValidationError('Для этого цвета нет имени')
-        return value
-
     def validate_slug(self, value):
         if not re.match('^[-a-zA-Z0-9_]+$', value):
             raise serializers.ValidationError('Некоректный slug')
@@ -81,8 +74,11 @@ class RecipeViewSerializer(serializers.ModelSerializer):
     """Сериализатор для просмотра списка рецептов."""
 
     author = UserDetailSerializer(read_only=True)
-    ingredients = serializers.SerializerMethodField(
-        method_name='get_ingredients')
+    # ingredients = serializers.SerializerMethodField(
+    #     method_name='get_ingredients')
+    ingredients = RecipeIngredientSerializer(
+        many=True,
+        source='recipe_ingredients')
     tags = TagSerializer(many=True, read_only=True)
     image = Base64ImageField()
     is_favorited = serializers.SerializerMethodField(
@@ -90,10 +86,10 @@ class RecipeViewSerializer(serializers.ModelSerializer):
     is_in_shopping_cart = serializers.SerializerMethodField(
         method_name='get_is_in_shopping_cart')
 
-    def get_ingredients(self, obj):
-        ingredient = RecipeIngredient.objects.filter(recipe=obj)
-        serializer = RecipeIngredientSerializer(ingredient, many=True)
-        return serializer.data
+    # def get_ingredients(self, obj):
+    #     ingredient = RecipeIngredient.objects.filter(recipe=obj)
+    #     serializer = RecipeIngredientSerializer(ingredient, many=True)
+    #     return serializer.data
 
     def get_is_favorited(self, obj):
         return Recipe.is_favorited(obj, self.context['request'].user.id)
