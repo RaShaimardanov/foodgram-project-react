@@ -1,3 +1,5 @@
+from colorfield.fields import ColorField
+
 from django.core.validators import MinValueValidator, MinLengthValidator
 from django.db import models
 
@@ -8,7 +10,8 @@ class Ingredient(models.Model):
     """Модель, представляющая ингредиент для рецепта."""
 
     name = models.CharField(
-        max_length=100, verbose_name='Название ингредиента',
+        max_length=100,
+        verbose_name='Название ингредиента',
         validators=[MinLengthValidator(1)],)
     measurement_unit = models.CharField(
         max_length=50,
@@ -35,9 +38,7 @@ class Tag(models.Model):
         max_length=50,
         verbose_name='Название тега',
         unique=True)
-    color = models.CharField(
-        max_length=7,
-        verbose_name='Цвет для тега')
+    color = ColorField(format="hex")
     slug = models.SlugField(
         max_length=50,
         verbose_name='Слаг',
@@ -84,7 +85,9 @@ class Recipe(models.Model):
         related_name='recipes',
         verbose_name='Тег')
     cooking_time = models.PositiveIntegerField(
-        verbose_name='Время приготовления')
+        verbose_name='Время приготовления',
+        validators=(MinValueValidator(
+            1, message='Минимальное время приготовления 1 минута'),))
     pub_date = models.DateTimeField(
         verbose_name='Дата публикации рецепта',
         auto_now_add=True,

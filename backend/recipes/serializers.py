@@ -74,8 +74,6 @@ class RecipeViewSerializer(serializers.ModelSerializer):
     """Сериализатор для просмотра списка рецептов."""
 
     author = UserDetailSerializer(read_only=True)
-    # ingredients = serializers.SerializerMethodField(
-    #     method_name='get_ingredients')
     ingredients = RecipeIngredientSerializer(
         many=True,
         source='recipe_ingredients')
@@ -85,11 +83,6 @@ class RecipeViewSerializer(serializers.ModelSerializer):
         method_name='get_is_favorited')
     is_in_shopping_cart = serializers.SerializerMethodField(
         method_name='get_is_in_shopping_cart')
-
-    # def get_ingredients(self, obj):
-    #     ingredient = RecipeIngredient.objects.filter(recipe=obj)
-    #     serializer = RecipeIngredientSerializer(ingredient, many=True)
-    #     return serializer.data
 
     def get_is_favorited(self, obj):
         return Recipe.is_favorited(obj, self.context['request'].user.id)
