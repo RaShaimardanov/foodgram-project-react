@@ -30,6 +30,13 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ('id', 'name', 'color', 'slug')
 
+    def validate_color(self, value):
+        try:
+            value = webcolors.hex_to_name(value)
+        except ValueError:
+            raise serializers.ValidationError('Для этого цвета нет имени')
+        return value
+
     def validate_slug(self, value):
         if not re.match('^[-a-zA-Z0-9_]+$', value):
             raise serializers.ValidationError('Некоректный slug')
