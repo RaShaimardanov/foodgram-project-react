@@ -64,3 +64,15 @@
     -  http://localhost/api/docs/redoc.html - документация к API
 
 ---
+7. Демо
+    -  https://food.cl02.store/ - главная страница сайта;
+    -  https://food.cl02.store/admin/ - админка страница сайта;
+    ```
+    {
+        "email": "admin@admin.ru",
+        "password": "admin"
+    }
+    ```
+    - Импорт ингредиентов 
+    <img src="import.png"/>
+    <img src="import2.png"/>
