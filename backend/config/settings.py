@@ -1,4 +1,3 @@
-"""Диляра, добрый день! Подскажите, как я могу с Вами связаться, в пачке не могу Вас найти"""
 import os
 from pathlib import Path
 
@@ -89,9 +88,8 @@ DJOSER = {
         'djoser.authentication.EmailOrUsernameAuthentication',
     ],
     'SERIALIZERS': {
-        'user': 'users.serializers.UserSerializer',
-        'user_create': 'users.serializers.UserCreateSerializer',
-        'current_user': 'users.serializers.UserSerializer',
+        'user': 'users.serializers.UserDetailSerializer',
+        'current_user': 'users.serializers.UserDetailSerializer',
     },
     'PERMISSIONS': {
         'set_password': ['rest_framework.permissions.IsAuthenticated'],
