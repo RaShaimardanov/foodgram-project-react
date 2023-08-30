@@ -12,6 +12,8 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+PAGE_SIZE = os.getenv('PAGE_SIZE', 6)
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
